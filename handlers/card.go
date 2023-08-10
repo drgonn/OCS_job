@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"word-card-app/models"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,12 +25,29 @@ func CreateWordCard(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid data"})
 		return
 	}
+
+	// 这里要求用的govalidator， 否则直接在tag里面写validator就行了
+	back := wordCard.Back
+	cleanedBack := govalidator.Trim(back, "")
+	if !isValidText(cleanedBack) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
+		return
+	}
+
 	err := models.InsertWordCard(&wordCard)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create word card"})
 		return
 	}
 	c.JSON(http.StatusCreated, wordCard)
+}
+
+func isValidText(text string) bool {
+	// 使用正则表达式检查文本是否只包含英文和中文字符
+	// 这是一个简化的示例，实际的正则表达式可能需要更复杂
+	validPattern := "^[a-zA-Z\u4e00-\u9fa5]+$"
+	isValid := govalidator.MatchesPattern(text, validPattern)
+	return isValid
 }
 
 // 更新单词卡
