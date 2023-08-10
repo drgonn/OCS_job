@@ -12,6 +12,7 @@ func SetupRoutes(r *gin.Engine) {
 	v1 := r.Group("/api/v1")
 	v1.Use(middleware.AuthMiddleware())
 	{
+		v1.DELETE("/logout/:token", handlers.Logout)
 
 		v1.GET("/word-cards", handlers.GetWordCards)
 		v1.POST("/word-cards", middleware.AuthModifyMiddleware(), handlers.CreateWordCard)

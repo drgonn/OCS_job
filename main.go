@@ -8,14 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// 全局变量，存储已撤销的 JWT 标识
-// 这里是为了简化，正规项目当然是放到 Redis 或者数据库中
-var revokedTokens = make(map[string]bool)
-
-func RevokeToken(tokenID string) {
-    revokedTokens[tokenID] = true
-}
-
 func main() {
 	r := gin.Default()
 	router.SetupRoutes(r)

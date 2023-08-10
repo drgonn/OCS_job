@@ -5,6 +5,8 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+
+	"word-card-app/handlers"
 )
 
 func AuthMiddleware() gin.HandlerFunc {
@@ -24,6 +26,11 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		// 将用户信息存储到上下文中，供后续处理函数使用
 		claims := token.Claims.(jwt.MapClaims)
+		if handlers.RevokedTokens[tokenString] {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized (token revoked)"})
+			c.Abort()
+			return
+		}
 		c.Set("username", claims["username"])
 		c.Set("admin", claims["admin"])
 		c.Next()

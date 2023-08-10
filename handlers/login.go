@@ -36,3 +36,21 @@ func Login(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"token": tokenString})
 }
+
+// 全局变量，存储已撤销的 JWT 标识
+// 这里是为了简化，正规项目当然是放到 Redis 或者数据库中
+var RevokedTokens = make(map[string]bool)
+
+func RevokeToken(tokenID string) {
+	RevokedTokens[tokenID] = true
+}
+
+func Logout(c *gin.Context) {
+	tokenString := c.Param("token")
+	if len(tokenString) == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid token"})
+		return
+	}
+	RevokeToken(tokenString)
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully logged out"})
+}
