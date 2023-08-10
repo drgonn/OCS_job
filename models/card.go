@@ -1,11 +1,13 @@
 package models
 
 import (
+	"fmt"
+
 	_ "github.com/mattn/go-sqlite3"
 )
 
 type WordCard struct {
-	ID    int    `json:"id"`
+	ID    int    `json:"id,omitempty"`
 	Front string `json:"front"`
 	Back  string `json:"back"`
 }
@@ -32,7 +34,9 @@ func GetAllWordCards() ([]WordCard, error) {
 
 // 创建单词卡
 func InsertWordCard(wordCard *WordCard) error {
-	_, err := db.Exec("INSERT INTO word_cards (front, back) VALUES (?, ?)", wordCard.Front, wordCard.Back)
+	r, err := db.Exec("INSERT INTO word_cards (front, back) VALUES (?, ?)", wordCard.Front, wordCard.Back)
+	p, _ := r.LastInsertId()
+	fmt.Println("rrrr", p)
 	if err != nil {
 		return err
 	}
