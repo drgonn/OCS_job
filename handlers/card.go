@@ -46,7 +46,7 @@ func isValidText(text string) bool {
 	// 使用正则表达式检查文本是否只包含英文和中文字符
 	// 这是一个简化的示例，实际的正则表达式可能需要更复杂
 	validPattern := "^[a-zA-Z\u4e00-\u9fa5]+$"
-	isValid := govalidator.MatchesPattern(text, validPattern)
+	isValid := govalidator.StringMatches(text, validPattern)
 	return isValid
 }
 
