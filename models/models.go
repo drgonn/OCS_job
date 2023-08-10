@@ -17,12 +17,6 @@ func InitDB() error {
 	return nil
 }
 
-type WordCard struct {
-	ID    int    `json:"id"`
-	Front string `json:"front"`
-	Back  string `json:"back"`
-}
-
 func CreateTables() error {
 	_, err := db.Exec(`
 		CREATE TABLE IF NOT EXISTS word_cards (
