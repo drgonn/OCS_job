@@ -7,20 +7,20 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"word-card-app/models"
+	model "word-card-app/model"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 )
 
 func Init() {
-	err := models.InitDB()
+	err := model.InitDB()
 	if err != nil {
 		log.Fatal("Failed to initialize database:", err)
 	}
 
 	// 创建数据库表
-	err = models.CreateTables()
+	// err = model.CreateTables()
 	if err != nil {
 		log.Fatal("Failed to create tables:", err)
 	}

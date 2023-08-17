@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"net/http"
-	"word-card-app/models"
+	"word-card-app/model"
 
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
@@ -10,7 +10,7 @@ import (
 
 // 获取所有单词卡
 func GetWordCards(c *gin.Context) {
-	wordCards, err := models.GetAllWordCards()
+	wordCards, err := model.GetAllWordCards()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get word cards"})
 		return
@@ -20,7 +20,7 @@ func GetWordCards(c *gin.Context) {
 
 // 创建单词卡
 func CreateWordCard(c *gin.Context) {
-	var wordCard models.WordCard
+	var wordCard model.WordCard
 	if err := c.ShouldBindJSON(&wordCard); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid data"})
 		return
@@ -34,7 +34,7 @@ func CreateWordCard(c *gin.Context) {
 		return
 	}
 
-	err := models.InsertWordCard(&wordCard)
+	err := model.InsertWordCard(&wordCard)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create word card"})
 		return
@@ -53,12 +53,12 @@ func isValidText(text string) bool {
 // 更新单词卡
 func UpdateWordCard(c *gin.Context) {
 	id := c.Param("id")
-	var wordCard models.WordCard
+	var wordCard model.WordCard
 	if err := c.ShouldBindJSON(&wordCard); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid data"})
 		return
 	}
-	err := models.UpdateWordCard(id, &wordCard)
+	err := model.UpdateWordCard(id, &wordCard)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update word card"})
 		return
@@ -69,7 +69,7 @@ func UpdateWordCard(c *gin.Context) {
 // 删除单词卡
 func DeleteWordCard(c *gin.Context) {
 	id := c.Param("id")
-	err := models.DeleteWordCard(id)
+	err := model.DeleteWordCard(id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete word card"})
 		return
