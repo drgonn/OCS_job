@@ -1,0 +1,33 @@
+Server:
+  RunMode: debug
+  HttpPort: 38085
+  ReadTimeout: 60
+  WriteTimeout: 60
+App:
+  DefaultPageSize: 20
+  MaxPageSize: 1000
+  LogSavePath: ../ocs/storage/logs
+  LogFileName: app
+  LogFileExt: .log
+  SecretKey: a869f2e40ee4267a4d6440c7808f1234
+  TokenPeriod: 7200
+
+
+Database:
+  Source: postgres
+  Uri: root:root@postgres_ocs:5432/ocs?sslmode=disable
+  Host: postgres_ocs
+  Port: 5432 
+  User: root    
+  Dbname: ocs  
+  Password: root
+
+Redis:
+  host: redis_ocs:6379
+  passwd: 
+  db: 0
+
+Log:
+  level: debug
+  format: json
+  file: ""
