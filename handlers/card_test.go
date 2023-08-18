@@ -6,8 +6,8 @@ import (
 	"log"
 	"net/http"
 	"net/http/httptest"
+	model "ocs-app/model"
 	"testing"
-	model "word-card-app/model"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"

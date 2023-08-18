@@ -2,10 +2,10 @@ package main
 
 import (
 	"log"
-	"word-card-app/db"
-	"word-card-app/global"
-	"word-card-app/model"
-	"word-card-app/router.go"
+	"ocs-app/db"
+	"ocs-app/global"
+	"ocs-app/model"
+	"ocs-app/router.go"
 
 	"github.com/gin-gonic/gin"
 )
@@ -31,7 +31,7 @@ func main() {
 	r := gin.Default()
 	router.SetupRoutes(r)
 
-	r.Run(":38085")
+	r.Run(":" + global.ServerSetting.HttpPort)
 }
 
 func setupDBEngine() error {

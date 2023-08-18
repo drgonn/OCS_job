@@ -10,5 +10,5 @@ type Stock struct {
 	Sector   string `json:"sector" gorm:"type:varchar(255)"`
 	Delisted bool   `json:"delisted,omitempty" gorm:"type:boolean;default:false"`
 
-	// BaseModel
+	BaseModel
 }

@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"net/http"
-	"word-card-app/model"
+	"ocs-app/model"
 
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"

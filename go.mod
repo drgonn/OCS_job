@@ -1,4 +1,4 @@
-module word-card-app
+module ocs-app
 
 go 1.19
 

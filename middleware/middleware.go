@@ -6,7 +6,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 
-	"word-card-app/handlers"
+	"ocs-app/handlers"
 )
 
 func AuthMiddleware() gin.HandlerFunc {

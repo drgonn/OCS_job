@@ -1,17 +1,20 @@
 package model
 
 import (
-	"word-card-app/global"
+	"database/sql"
+	"ocs-app/global"
 )
 
-// func init() {
-// 	// if runMode := os.Getenv("RUN_MODE"); runMode == "testing" {
-// 	if runMode := global.ServerSetting.RunMode; runMode == "testing" {
-// 		// TO-DO
-// 	} else {
-// 		AutoMigrateAll()
-// 	}
-// }
+var db *sql.DB
+
+func InitDB() error {
+	var err error
+	db, err = sql.Open("sqlite3", "wordcards.db")
+	if err != nil {
+		return err
+	}
+	return nil
+}
 
 // Migrate Model
 func AutoMigrateAll() {
