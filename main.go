@@ -4,6 +4,7 @@ import (
 	"log"
 	"word-card-app/db"
 	"word-card-app/global"
+	"word-card-app/model"
 	"word-card-app/router.go"
 
 	"github.com/gin-gonic/gin"
@@ -30,25 +31,18 @@ func main() {
 	r := gin.Default()
 	router.SetupRoutes(r)
 
-	// 初始化数据库连接
-	// err := model.InitDB()
-	// if err != nil {
-	// 	log.Fatal("Failed to initialize database:", err)
-	// }
-
-	// 创建数据库表
-
 	r.Run(":38085")
 }
 
 func setupDBEngine() error {
 	var err error
-	global.GormEngine, err = db.NewGormClient(global.DatabaseSetting)
+	global.GormDb, err = db.NewGormClient(global.DatabaseSetting)
 	if err != nil {
 		return err
 	}
 
-	// model.Migrate(global.GormEngine)
+	// 创建数据库表
+	model.AutoMigrateAll()
 
 	return nil
 }
