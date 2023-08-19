@@ -21,24 +21,22 @@ type PageResponse struct {
 	TotalPages int64 `json:"totalpages,omitempty"`
 }
 
-var PERPAGE = global.AppSetting.DefaultPageSize
-
 func QueryPages(urlArgs map[string][]string) PageQuery {
-	var perPage = PERPAGE
+	var perPage = global.AppSetting.DefaultPageSize
 	var current = 1
-	var sort = "update_time desc"
+	var sort = "id desc"
 	var search = ""
 	var keys = map[string]interface{}{}
 
 	for k, v := range urlArgs {
 		switch k {
 		case "pageSize":
-			perPage = defaultNum(v, PERPAGE).(int)
+			perPage = defaultNum(v, perPage).(int)
 		case "current":
 			current = defaultNum(v, 1).(int)
 		case "sort":
 			if len(sort) == 0 {
-				sort = "update_time desc"
+				sort = "id desc"
 				break
 			}
 			sort = v[0]

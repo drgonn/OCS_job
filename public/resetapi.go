@@ -50,7 +50,6 @@ func (t *Table[MODEL]) List(c *gin.Context) {
 	keys := map[string]interface{}{}
 	keyOpts := map[string]interface{}{}
 
-	fmt.Println("keys", pageQuery.Keys)
 	dao := model.DAOOption{
 		Order: pageQuery.Sort,
 		Where: pageQuery.Keys,
@@ -75,6 +74,7 @@ func (t *Table[MODEL]) List(c *gin.Context) {
 		data = entity
 	}
 
+	fmt.Println("keys", pageQuery.PerPage, count, pageQuery.Current, pageQuery.Sort)
 	if count%int64(pageQuery.PerPage) != 0 {
 		totalPages = count/int64(pageQuery.PerPage) + 1
 	} else {
