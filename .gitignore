@@ -1,0 +1,4 @@
+.vscode
+server/logs/*
+/.idea/
+/tmp/

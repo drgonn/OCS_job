@@ -1,14 +1,3 @@
-
-
-up:
-	docker-compose up -d
-
-down:
-	docker-compose down
-
-stop:
-	docker-compose stop
-
 shell:
 	docker exec -it ocs bash
 
@@ -17,7 +6,6 @@ install:
 
 run:
 	go run main.go
-
 
 redis:
 	docker exec -it redis_ocs redis-cli
